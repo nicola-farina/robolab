@@ -20,7 +20,7 @@ run_container() {
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     -u $UID:users \
     -w $HOME \
-    -e DISPLAY=:0.0 \
+    -e DISPLAY=$DISPLAY \
     -e QT_X11_NO_MITSHM=1 \
     -e DOCKER=1 \
     --device=/dev/dri:/dev/dri \
@@ -36,11 +36,11 @@ run_container_nvidia() {
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     -u $UID:users \
     -w $HOME \
-    -e DISPLAY=:0.0 \
+    -e DISPLAY=$DISPLAY \
     -e QT_X11_NO_MITSHM=1 \
     -e DOCKER=1 \
-    -e NVIDIA_VISIBLE_DEVICES=all
-    -e NVIDIA_DRIVER_CAPABILITIES=all
+    -e NVIDIA_VISIBLE_DEVICES=all \
+    -e NVIDIA_DRIVER_CAPABILITIES=all \
     --device=/dev/dri:/dev/dri \
     --name $CONTAINER_NAME \
     --hostname $CONTAINER_NAME \
