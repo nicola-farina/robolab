@@ -3,13 +3,13 @@ A Docker image and container setup for having an environment with ROS and other 
 
 ## Known limitations
 - This does not work with WSL on Windows.
-- This *probavly* does not work with NVIDIA GPUs (I cannot test it).
+- This *probably* does not work with NVIDIA GPUs (I cannot test it).
 
 ## How to use
 ### Prerequisites
 - A Linux machine.
 - Docker Engine. Refer to the official documentation available online.
-  - **Important:** make sure that you can run docker commands without `sudo` (for Linux, follow `Manage Docker as non-root user` in [this guide](https://docs.docker.com/engine/install/linux-postinstall/)).
+  - **Important:** make sure that you can run docker commands without `sudo` (for Linux, follow *Manage Docker as non-root user* in [this guide](https://docs.docker.com/engine/install/linux-postinstall/)).
   
 ### Setup
 - Open a terminal and open your `.bashrc` file with the following command:
@@ -49,14 +49,14 @@ A Docker image and container setup for having an environment with ROS and other 
   ```
   **NB:** the first time you run `robolab`, the Docker image will be downloaded. It is ~3GB, so it may take a while. The progress is not shown, so don't worry if it looks like nothing happens. Eventually the download will finish.
   
-- Once inside the container, you will find a folder `src`. This is where you will put the `orc` folder.
+- Once inside the container, you will find a folder `src`. This is where you will put/create the `orc` folder.
 
 - If you want to move files from your machine to your container, you can move them to the folder `/home/<your-user>/robolab/home`. This folder on your machine is mapped to the home folder in your container (for example, you will find the `src` folder).
 
 ### Troubleshooting
 In most cases, if you are experiencing problems in the container, the best thing to try is the following:
-- Enter your container with `robolab`.
-- Issue this command:
+- Enter your container by running the command `robolab`.
+- Execute this command:
   ```
   rm .bashrc
   ```
