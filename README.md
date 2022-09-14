@@ -45,11 +45,11 @@ A Docker image and container setup for having an environment with ROS and other 
   ```
   This folder is mapped to your home inside the container, so you can put files there and access them from your machine.
 
-- Now you are all set. You have set up some aliases in the `.bashrc` file to make running the container easier. In a terminal, you can run one of those commands:
+- Now you are all set. In the first step, you have set some aliases in the `.bashrc` file to make running the container easier. In a terminal, you can run one of those commands:
   - `robolab`: generally use this. It setups and starts the container.
   - `robolab-f`: the same as the previous one, but forces the container to stop and creates a new one if one is already running.
   - `robolab-root`: attaches to the already running container as `root` user.
-    - **NB:** the first time you run `robolab`, the Docker image will be downloaded. It is ~3GB, so it may take a while.
+  - **NB:** the first time you run `robolab`, the Docker image will be downloaded. It is ~3GB, so it may take a while.
   
 - Once inside the container, you will be in your home, where you will find a folder `src`. This is where you will put the folder `orc` for the *Optimisation Based Robot Control* course. If you want to change it, open the `.bashrc` file inside the container (located in your home) with `nano` or `spyder3` and change the following line accordingly: 
   ```
