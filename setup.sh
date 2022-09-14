@@ -52,12 +52,13 @@ if [ $# -eq 2 ]; then
 fi
 
 #Create code base folders if not present
-CODEBASE_PATH="$VOLUME_PATH/src/orc"
-if [ ! -d $CODEBASE_PATH ]; then
-    mkdir -p $CODEBASE_PATH
+CODEBASE_PATH_OUTSIDE="$VOLUME_PATH/src"
+if [ ! -d $CODEBASE_PATH_OUTSIDE ]; then
+    mkdir -p $CODEBASE_PATH_OUTSIDE
 fi
 
 #Setup .bashrc
+CODEBASE_PATH_INSIDE="$HOME/src"
 if [ ! -f "$VOLUME_PATH/.bashrc" ]; then
     cp /etc/skel/.bashrc $VOLUME_PATH
     printf "\n\
@@ -66,7 +67,7 @@ export PKG_CONFIG_PATH=/opt/openrobots/lib/pkgconfig:\$PKG_CONFIG_PATH \n\
 export LD_LIBRARY_PATH=/opt/openrobots/lib:\$LD_LIBRARY_PATH \n\
 export ROS_PACKAGE_PATH=/opt/openrobots/share \n\
 export PYTHONPATH=\$PYTHONPATH:/opt/openrobots/lib/python3.8/site-packages \n\
-export PYTHONPATH=\$PYTHONPATH:$CODEBASE_PATH\n" >> $VOLUME_PATH/.bashrc
+export PYTHONPATH=\$PYTHONPATH:$CODEBASE_PATH_INSIDE\n" >> $VOLUME_PATH/.bashrc
 fi
 
 #Check if container is already running
