@@ -56,7 +56,7 @@ A Docker image and container setup for having an environment with ROS and other 
   ```
 
 ### Important things
-- The `$ROBOLAB_HOME_PATH` folder is mapped to your home inside the container. This means that you can every file located there is shared between the container and your machine. You can put, access and modify files there from your machine and those actions will be reflected inside the container.
+- The `$ROBOLAB_HOME_PATH` folder is mapped to your home inside the container. This means that every file located there is shared between the container and your machine. You can put, access and modify files there from your machine and those actions will be reflected inside the container.
   - For example, you can download the Python file provided by the teacher on your normal machine, move them inside that folder, and they will be available inside the container. 
 
 ### Troubleshooting
