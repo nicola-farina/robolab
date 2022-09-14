@@ -45,6 +45,7 @@ A Docker image and container setup for having an environment with ROS and other 
 - To run the Docker container, open a terminal and input the following command:
   - `robolab` **(only if you do not have an NVIDIA GPU)**
   - `robolab-n` **(only if you have an NVIDIA GPU)**
+  
   **NB:** the first time you run `robolab`, the Docker image will be downloaded. It is ~3GB, so it may take a while. The progress is not shown, so don't worry if it looks like nothing happens. Eventually the download will finish.
   
 - Once inside the container, you will find a folder `src`. This is where you will put/create the `orc` folder.
