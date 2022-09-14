@@ -43,7 +43,6 @@ A Docker image and container setup for having an environment with ROS and other 
   cd robolab
   mkdir home
   ```
-  This folder is mapped to your home inside the container, so you can put files there and access them from your machine.
 
 - Now you are all set. In the first step, you have set some aliases in the `.bashrc` file to make running the container easier. In a terminal, you can run one of those commands:
   - `robolab`: generally use this. It setups and starts the container.
@@ -55,6 +54,10 @@ A Docker image and container setup for having an environment with ROS and other 
   ```
   export PYTHONPATH=$PYTHONPATH:<path-to-folder-containing-orc-folder>
   ```
+
+### Important things
+- The `$ROBOLAB_HOME_PATH` folder is mapped to your home inside the container. This means that you can every file located there is shared between the container and your machine. You can put, access and modify files there from your machine and those actions will be reflected inside the container.
+  - For example, you can download the Python file provided by the teacher on your normal machine, move them inside that folder, and they will be available inside the container. 
 
 ### Troubleshooting
 In most cases, if you are experiencing problems in the container, the best thing to try is to delete the `.bashrc` file **inside the container**, exit from the container, and run `robolab-f`.
