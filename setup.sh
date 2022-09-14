@@ -84,4 +84,4 @@ else
 fi
 
 echo "Connected to container $CONTAINER_NAME"
-docker exec -it $IMAGE bash
+docker exec -it $CONTAINER_NAME bash
