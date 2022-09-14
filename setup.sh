@@ -29,7 +29,7 @@ run_container() {
     $IMAGE > /dev/null
 }
 
-run_container() {
+run_container_nvidia() {
     docker run -dit --rm \
     -v /etc/passwd:/etc/passwd:ro \
     -v $VOLUME_PATH:$HOME \
@@ -39,10 +39,12 @@ run_container() {
     -e DISPLAY=:0.0 \
     -e QT_X11_NO_MITSHM=1 \
     -e DOCKER=1 \
-    --gpus 'all,"capabilities=all"' \
+    -e NVIDIA_VISIBLE_DEVICES=all
+    -e NVIDIA_DRIVER_CAPABILITIES=all
     --device=/dev/dri:/dev/dri \
     --name $CONTAINER_NAME \
     --hostname $CONTAINER_NAME \
+    --runtime=nvidia \
     $IMAGE > /dev/null
 }
 
