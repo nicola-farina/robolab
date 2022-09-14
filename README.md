@@ -37,7 +37,7 @@ A Docker image and container setup for having an environment with ROS and other 
 
 - Move into the `robolab` folder and create a `home` folder:
   ```
-  cd robolab
+  cd ~/robolab
   mkdir home
   ```
 - Done!
