@@ -3,10 +3,12 @@
 IMAGE="nicolafarina/robolab"
 CONTAINER_NAME="robolab"
 FORCE=false
+NVIDIA=false
 
 usage() { 
     echo "USAGE: $0 [-f] <path>"
     echo "[OPTIONAL] -f: forces container to stop if already running"
+    echo "[OPTIONAL] -n: use if you have an NVIDIA GPU"
     echo "<path>: absolute path of the directory which will map to home inside the docker container"
     exit 1
 } 
@@ -20,15 +22,33 @@ run_container() {
     -w $HOME \
     -e DISPLAY=:0.0 \
     -e QT_X11_NO_MITSHM=1 \
-    -e NVIDIA_VISIBLE_DEVICES=all \
+    -e DOCKER=1 \
     --device=/dev/dri:/dev/dri \
     --name $CONTAINER_NAME \
     --hostname $CONTAINER_NAME \
     $IMAGE > /dev/null
 }
 
-#Check that there are 1 or 2 arguments
-if [ $# -eq 0 ] || [ $# -gt 2 ]; then
+run_container() {
+    docker run -dit --rm \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v $VOLUME_PATH:$HOME \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+    -u $UID:users \
+    -w $HOME \
+    -e DISPLAY=:0.0 \
+    -e QT_X11_NO_MITSHM=1 \
+    -e DOCKER=1 \
+    --gpus 'all,"capabilities=all"' \
+    --device=/dev/dri:/dev/dri \
+    --name $CONTAINER_NAME \
+    --hostname $CONTAINER_NAME \
+    $IMAGE > /dev/null
+}
+
+
+#Check that there are 1, 2 or 3 arguments
+if [ $# -eq 0 ] || [ $# -gt 3 ]; then
     usage
 fi
 
@@ -41,13 +61,35 @@ if [ $# -eq 1 ]; then
     fi
 fi  
 
-#If two arguments, first -f then volume directory
+#If two arguments, first -f then volume directory; or first -n then volume directory
 if [ $# -eq 2 ]; then
     if [ "$1" == "-f" ] && [ -d $2 ]; then
         FORCE=true
         VOLUME_PATH=$2
     else
-        usage
+        if [ "$1" == "-n" ] && [ -d $2 ]; then
+            NVIDIA=true
+            VOLUME_PATH=$2
+        else
+            usage
+        fi
+    fi
+fi
+
+#If three arguments, first -f and -n, then volume directory
+if [ $# -eq 3 ]; then
+    if [ "$1" == "-f" ] && [ "$2" == "-n"] && [ -d $3 ]; then
+        FORCE=true
+        NVIDIA=true
+        VOLUME_PATH=$3
+    else
+        if [ "$1" == "-n" ] && [ "$2" == "-f"] && [ -d $3 ]; then
+            FORCE=true
+            NVIDIA=true
+            VOLUME_PATH=$3
+        else
+            usage
+        fi
     fi
 fi
 
@@ -76,13 +118,20 @@ if [ "$( docker container inspect -f '{{.State.Status}}' $CONTAINER_NAME 2>/dev/
     if [ $FORCE = true ]; then
         echo "Stopping container $CONTAINER_NAME..."
         docker container stop $CONTAINER_NAME > /dev/null
-        run_container
+        if [ $NVIDIA = true ]; then
+            run_container_nvidia
+        else
+            run_container
+        fi
     else
         echo "Container $CONTAINER_NAME already running, attaching..."
     fi
 else
-    run_container
+    if [ $NVIDIA = true ]; then
+        run_container_nvidia
+    else
+        run_container
+    fi
 fi
 
-echo "Connected to container $CONTAINER_NAME"
 docker exec -it $CONTAINER_NAME bash
