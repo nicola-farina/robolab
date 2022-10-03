@@ -20,3 +20,4 @@ RUN sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian
 	robotpkg-py38-qt5-gepetto-viewer-corba \
 	robotpkg-py38-quadprog \
 	robotpkg-py38-tsid
+RUN apt install robotpkg-eiquadprog=1.2.5
