@@ -18,7 +18,7 @@ run_container() {
     -v /etc/passwd:/etc/passwd:ro \
     -v $VOLUME_PATH:$HOME \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-    -v $HOME/.ssh:/$HOME/.ssh:ro \
+    -v $HOME/.ssh:$HOME/.ssh:ro \
     -v $SSH_AUTH_SOCK:/ssh-agent:ro \
     -u $UID:users \
     -w $HOME \
