@@ -18,11 +18,14 @@ run_container() {
     -v /etc/passwd:/etc/passwd:ro \
     -v $VOLUME_PATH:$HOME \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+    -v $HOME/.ssh:/$HOME/.ssh:ro \
+    -v $SSH_AUTH_SOCK:/ssh-agent:ro \
     -u $UID:users \
     -w $HOME \
     -e DISPLAY=$DISPLAY \
     -e QT_X11_NO_MITSHM=1 \
     -e DOCKER=1 \
+    -e SSH_AUTH_SOCK=/ssh-agent \
     --device=/dev/dri:/dev/dri \
     --name $CONTAINER_NAME \
     --hostname $CONTAINER_NAME \
